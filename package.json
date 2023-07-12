@@ -7,7 +7,7 @@
     "pretest": "node scripts/create-database.js test",
     "posttest": "node scripts/drop-database.js",
     "prestart": "node scripts/create-database.js && npm run migrate",
-    "start": "nodemon index.js",
+    "start": "nodemon -r dotenv/config index.js",
     "lint": "eslint .",
     "migrate": "node scripts/migrate.js"
   },

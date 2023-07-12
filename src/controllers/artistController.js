@@ -1,29 +1,19 @@
-// const app = require("../app");
+const { db } = require("../db");
 
-// app.post("/artists", (req, res) => {
-//   res.status(201).send("Success");
-// });
+const createArtist = async (req, res) => {
+  const { name, genre } = req.body;
 
-// class ArtistController {
-//   getAllArtists(req, res) {
-//     // logic
-//   }
-//   createArtist(req, res) {
-//     Artist.create(req.body)
-//   }
-//   getArtistById(req, res) {
-//     // logic
-//   }
-//   updateArtist(req, res) {
-//     // logic
-//   }
-//   deleteArtist(req, res) {
-//     // logic
-//   }
-// }
-
-const createArtist = (req, res) => {
-  res.status(201).json({ message: "Artist created successfully" });
+  try {
+    const {
+      rows: [artist],
+    } = await db.query(
+      `INSERT INTO Artists (name, genre) VALUES ($1, $2) RETURNING *`,
+      [name, genre]
+    );
+    res.status(201).json(artist);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 module.exports = { createArtist };

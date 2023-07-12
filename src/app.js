@@ -1,6 +1,6 @@
 const express = require("express");
 const artistRouter = require("./routes/artistRouter");
-
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());
