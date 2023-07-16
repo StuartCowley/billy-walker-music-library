@@ -25,26 +25,12 @@ const readArtist = async (_, res) => {
   }
 };
 
-// const getArtistByID = async (req, res) => {
-//   try {
-//     const id = req.params;
-//     const {
-//       rows: [artists],
-//     } = await db.query("SELECT * FROM Artists WHERE id = $1", [id]);
-//     res.status(200).json(artists);
-//   } catch (err) {
-//     res.status(404).json(err.message);
-//   }
-// };
-
 const getArtistById = async (req, res) => {
   try {
     const { id } = req.params;
     const {
       rows: [artist],
     } = await db.query(`SELECT * FROM Artists WHERE id = $1`, [id]);
-
-    console.log(artist);
 
     if (!artist) {
       return res.status(404).json({ message: `artist ${id} does not exist` });
@@ -56,4 +42,28 @@ const getArtistById = async (req, res) => {
   }
 };
 
-module.exports = { createArtist, readArtist, getArtistById };
+const replaceArtistById = async (req, res) => {
+  try {
+    const { name, genre } = req.body;
+    const { id } = req.params;
+
+    const {
+      rows: [artist],
+    } = await db.query(
+      "UPDATE Artists SET name = $1, genre = $2 WHERE id = $3 RETURNING *",
+      [name, genre, id]
+    );
+
+    if (!artist) {
+      return res
+        .status(404)
+        .json({ message: `Artist with id ${id} not found` });
+    }
+
+    res.status(200).json(artist);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { createArtist, readArtist, getArtistById, replaceArtistById };
