@@ -6,7 +6,11 @@ const db = require("../db/index");
 const app = require("../src/app");
 
 describe("Read Artists", () => {
+  // hey idiot!!
+  // if it needs artists, it needs to be in this block!!
+  // you spent ages figuring this out already!!!
   let artists;
+
   beforeEach(async () => {
     const responses = await Promise.all([
       db.query(
@@ -38,6 +42,26 @@ describe("Read Artists", () => {
 
         expect(artistRecord).to.deep.equal(expected);
       });
+    });
+  });
+
+  describe("GET /artists/{id}", () => {
+    it("returns the artist with the correct id", async () => {
+      const { status, body } = await request(app)
+        .get(`/artists/${artists[0].id}`)
+        .send();
+
+      expect(status).to.equal(200);
+      expect(body).to.deep.equal(artists[0]);
+    });
+
+    it("returns a 404 if the artist does not exist", async () => {
+      const { status, body } = await request(app)
+        .get("/artists/999999999")
+        .send();
+
+      expect(status).to.equal(404);
+      expect(body.message).to.equal("artist 999999999 does not exist");
     });
   });
 });
