@@ -4,7 +4,8 @@ const {
   createArtist,
   readArtist,
   getArtistById,
-  replaceArtistById,
+  updateArtist,
+  deleteArtist,
 } = require("../controllers/artistController");
 
 router.post("/", createArtist);
@@ -13,6 +14,8 @@ router.get("/", readArtist);
 
 router.get("/:id", getArtistById);
 
-router.put("/:id", replaceArtistById);
+router.put("/:id", updateArtist);
+
+router.delete("/:id", deleteArtist);
 
 module.exports = router;
