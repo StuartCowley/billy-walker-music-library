@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-// test/artist-update.test.js
 const { expect } = require("chai");
 const request = require("supertest");
 const db = require("../src/db");
@@ -31,7 +30,7 @@ describe("Update Artist", () => {
       });
     });
 
-    it("returns 404 if artist does not exist", async () => {
+    it("returns 404 if the artist does not exist", async () => {
       const { status, body } = await request(app)
         .put(`/artists/9999999`)
         .send({ name: "Failed attempt", genre: "you tried" });

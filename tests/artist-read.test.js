@@ -1,14 +1,10 @@
 /* eslint-disable no-undef */
-// tests/artist-read.test.js
 const { expect } = require("chai");
 const request = require("supertest");
 const db = require("../db/index");
 const app = require("../src/app");
 
 describe("Read Artists", () => {
-  // hey idiot!!
-  // if it needs artists, it needs to be in this block!!
-  // you spent ages figuring this out already!!!
   let artists;
 
   beforeEach(async () => {
