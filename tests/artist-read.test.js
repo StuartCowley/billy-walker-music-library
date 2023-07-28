@@ -36,7 +36,7 @@ describe("Read Artists", () => {
       body.forEach((artistRecord) => {
         const expected = artists.find((a) => a.id === artistRecord.id);
 
-        expect(artistRecord).to.deep.equal(expected);
+        expect(artistRecord).to.equal(expected);
       });
     });
   });
