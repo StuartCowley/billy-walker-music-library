@@ -44,7 +44,7 @@ describe("create album", () => {
 
         const {
           rows: [albumData],
-        } = await db.query(`SELECT * FROM Albums WHERE id = ${body.artistid}`);
+        } = await db.query(`SELECT * FROM Albums WHERE id = ${body.id}`);
         expect(albumData.name).to.equal("AM");
         expect(albumData.year).to.equal(2013);
       });
