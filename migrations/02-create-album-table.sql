@@ -1,0 +1,6 @@
+CREATE TABLE Albums (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NULL,
+  year INT NULL,
+  artistId INT NULL REFERENCES Artists(id)
+);

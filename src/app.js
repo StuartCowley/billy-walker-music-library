@@ -1,11 +1,10 @@
-const express = require('express');
-
+const express = require("express");
 const app = express();
+const artistRouter = require("./routes/artistRouter");
+const albumRouter = require("./routes/albumRouter");
 
 app.use(express.json());
-
-app.get("/", (_req, res) => {
-  res.send("Hello World!");
-});
+app.use("/artists", artistRouter);
+app.use("/artists/:id/albums", albumRouter);
 
 module.exports = app;
